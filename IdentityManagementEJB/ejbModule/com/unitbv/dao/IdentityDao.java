@@ -167,8 +167,11 @@ public class IdentityDao implements IdentityDAORemote {
 	{
 		Identity identity = dtoToEntity.convertCAIdentity(createAccountDTO);
 		
-		if(entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
-				.setParameter("username", identity.getUsername()).getFirstResult() > 0)
+		List<Identity> identitites = entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
+				.setParameter("username", identity.getUsername()).getResultList();
+		LOGGER.log(Level.INFO, String.valueOf(identitites.size()));
+		
+		if(identitites.size() > 0)
 		{
 			throw new CreateAccountException("Username already in use!");
 		}

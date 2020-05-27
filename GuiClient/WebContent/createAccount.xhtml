@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Create Account</title>
+	<h:outputStylesheet name="/css/login.css" />
+</h:head>
+<h:body>
+
+	<h:form label="createAccountForm" class="form">
+		<h2 class="title-form-login">Create Account</h2>
+		<br/>
+		<h:outputText value="Email  "/>
+		<h:inputText class="effect-input" required="true" label="Email"
+			placeholder="Email" validatorMessage="Enter email"
+			value="#{createAccountBean.createAccountDTO.email}"></h:inputText>
+		<br/>
+		<br/>
+		<h:outputText value="First name  "/>
+		<h:inputText class="effect-input" label="First name" required="true"
+			placeholder="First name" validatorMessage="Enter first name"
+			value="#{createAccountBean.createAccountDTO.firstname}"></h:inputText>
+		<br/>
+		<br/>
+		<h:outputText value="Last name  "/>
+		<h:inputText class="effect-input" label="Last name" required="true"
+			placeholder="Last name" validatorMessage="Enter last name"
+			value="#{createAccountBean.createAccountDTO.lastname}"></h:inputText>
+		<br/>
+		<br/>
+		<h:outputText value="Password  "/>
+		<h:inputSecret class="effect-input" label="Password" required="true"
+			placeholder="Password" validatorMessage="Enter password"
+			value="#{createAccountBean.createAccountDTO.password}"></h:inputSecret>
+		<br/>
+		<br/>
+		<h:outputText value="Username  "/>
+		<h:inputText class="effect-input" label="Username" required="true"
+			placeholder="Username" validatorMessage="Enter username"
+			value="#{createAccountBean.createAccountDTO.username}"></h:inputText>
+		<br/>
+		<br/>
+		<h:commandButton class="btns" value="Create Account"
+			action="#{createAccountBean.createIdentityAccount}"></h:commandButton>
+			
+		<br/>
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	
+</h:body>
+</html>

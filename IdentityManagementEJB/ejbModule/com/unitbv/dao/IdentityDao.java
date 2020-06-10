@@ -2,6 +2,7 @@ package com.unitbv.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,10 +17,12 @@ import com.unitbv.dao.IdentityDAORemote;
 import com.unitbv.dto.ChangePasswordDTO;
 import com.unitbv.dto.CreateAccountDTO;
 import com.unitbv.dto.LoginDTO;
+import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.IdentityDTO;
 import com.unitbv.exception.ChangePasswordException;
 import com.unitbv.exception.CreateAccountException;
 import com.unitbv.exception.LoginException;
+import com.unitbv.exception.ModifyAccountException;
 import com.unitbv.util.DtoToEntity;
 import com.unitbv.util.EntityToDTO;
 
@@ -54,7 +57,7 @@ public class IdentityDao implements IdentityDAORemote {
 	}
 
 	@Override
-	public List<IdentityDTO> findAll() 
+	public List<IdentityDTO> findAll()
 	{
 		Query query = entityManager.createQuery("SELECT u FROM User u");
 		
@@ -168,22 +171,48 @@ public class IdentityDao implements IdentityDAORemote {
 		Identity identity = dtoToEntity.convertCAIdentity(createAccountDTO);
 		
 		List<Identity> identitites = entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
-				.setParameter("username", identity.getUsername()).getResultList();
-		LOGGER.log(Level.INFO, String.valueOf(identitites.size()));
+				.setParameter("username", identity.getFirstname().toLowerCase() + "." + identity.getLastname().toLowerCase()).getResultList();
 		
 		if(identitites.size() > 0)
 		{
-			throw new CreateAccountException("Username already in use!");
+			throw new CreateAccountException("An account for the user with the given name already exists!");
 		}
 		
-		if(identity.getEmail() == null || identity.getFirstname() == null || identity.getLastname() == null || identity.getPassword() == null)
-		{
-			throw new CreateAccountException("All fields are required!");
-		}
+		String generatedPassword = UUID.randomUUID().toString().replaceAll("-", "");
+		
+		identity.setUsername(identity.getFirstname().toLowerCase() + "." + identity.getLastname().toLowerCase());
+		identity.setPassword(generatedPassword);
 		
 		entityManager.persist(identity);
 		entityManager.flush();
 		
 		return createAccountDTO;
+	}
+
+	@Override
+	public ModifyAccountDTO modifyAccount(ModifyAccountDTO modifyAccountDTO) throws ModifyAccountException {
+		
+		Identity identity = entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
+				.setParameter("username", modifyAccountDTO.getFirstName().toLowerCase() + "." + modifyAccountDTO.getLastName().toLowerCase()).getSingleResult();
+		
+		return null;
+	}
+
+	@Override
+	public ArrayList<ModifyAccountDTO> showIdentities()
+	{
+	    Query query = entityManager.createQuery("SELECT u FROM Identity u");
+		
+		@SuppressWarnings("unchecked")
+		List<Identity> identities = query.getResultList();
+		
+		ArrayList<ModifyAccountDTO> toBeShowed = new ArrayList<>();
+		
+		for (Identity identity : identities)
+		{
+			toBeShowed.add(entityToDTO.identityToShow(identity));
+		}
+		
+		return toBeShowed;
 	}
 }

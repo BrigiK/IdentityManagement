@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="organizations")
 @NamedQuery(name="Organization.findAll", query="SELECT o FROM Organization o")
+@NamedQuery(name = "findOrganizationByName", query = "SELECT i FROM Organization i WHERE i.organizationName = :organizationName")
 public class Organization implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,10 +25,17 @@ public class Organization implements Serializable {
 	private String organizationName;
 
 	//bi-directional many-to-one association to Identity
-	@OneToMany(mappedBy="organization")
+	@OneToMany(mappedBy="organization", fetch=FetchType.EAGER)
 	private List<Identity> identities;
 
 	public Organization() {
+	}
+
+	public Organization(int id, String organizationName, String cui) {
+		super();
+		this.organizationId = id;
+		this.organizationName = organizationName;
+		this.cui = cui;
 	}
 
 	public int getOrganizationId() {
@@ -74,6 +82,12 @@ public class Organization implements Serializable {
 		identity.setOrganization(null);
 
 		return identity;
+	}
+
+	@Override
+	public String toString() {
+		return "Organization [organizationId=" + organizationId + ", cui=" + cui + ", organizationName="
+				+ organizationName + ", identities=" + identities + "]";
 	}
 
 }

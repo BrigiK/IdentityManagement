@@ -17,6 +17,17 @@
 			value="#{loginBean.loginDTO.username}"></h:inputText>
 		<br/>
 		<br/>
+		<br/>
+		<h:button outcome="createAccount.xhtml" value="Create Account" />
+		<br/>
+		<br/>
+		<br/>
+		<h:button outcome="showIdentities.xhtml" value="View All Identities" />
+		<br/>
+		<br/>
+		<br/>
+		<h:commandButton class="btns" value="Sign Out"
+			action="#{loginBean.logout}"></h:commandButton>
 		
 </h:body>
 </html>

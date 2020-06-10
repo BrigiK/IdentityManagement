@@ -35,10 +35,17 @@ public class Identity implements Serializable {
 	private Organization organization;
 
 	//bi-directional many-to-one association to Identityroleresource
-	@OneToMany(mappedBy="identity")
-	private List<Identityroleresource> identityroleresources;
+	@OneToMany(mappedBy="identity", fetch=FetchType.EAGER)
+	private List<Identityroleresources> identityroleresources;
 
 	public Identity() {
+	}
+	
+	public Identity(String email, String firstname, String lastname) {
+		super();
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	public Identity(String email, String firstname, String lastname, String password, String username) {
@@ -112,22 +119,22 @@ public class Identity implements Serializable {
 		this.organization = organization;
 	}
 
-	public List<Identityroleresource> getIdentityroleresources() {
+	public List<Identityroleresources> getIdentityroleresources() {
 		return this.identityroleresources;
 	}
 
-	public void setIdentityroleresources(List<Identityroleresource> identityroleresources) {
+	public void setIdentityroleresources(List<Identityroleresources> identityroleresources) {
 		this.identityroleresources = identityroleresources;
 	}
 
-	public Identityroleresource addIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources addIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().add(identityroleresource);
 		identityroleresource.setIdentity(this);
 
 		return identityroleresource;
 	}
 
-	public Identityroleresource removeIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources removeIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().remove(identityroleresource);
 		identityroleresource.setIdentity(null);
 

@@ -51,7 +51,7 @@ public class CreateAccountBean {
 			// if identityDTO is admin
 			System.out.println("Account successfully created!");
 			
-			return "/adminFilter/admin.xhtml?faces-redirect=true";
+			return "/adminFilter/accountCreatedSuccessfully.xhtml?faces-redirect=true";
 		} 
 		catch (CreateAccountException e) 
 		{

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Modify Account</title>
+	<h:outputStylesheet library="css" name="table.css" />
+</h:head>
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{showIdentitiesBean.showIdentities}" />
+</f:metadata>
+<h:body>
+	<h2 class="title-form-login">All Identities</h2>
+	<br />
+
+	<h2>Identities</h2>
+
+	<h:form label="modifyAccountForm">
+		<h:dataTable value="#{showIdentitiesBean.showIdentityDTOs}"
+			var="identity" styleClass="identityTable"
+			headerClass="identityTableHeader"
+			rowClasses="identityTableOddRow,identityTableEvenRow">
+
+			<h:column>
+				<f:facet name="header">First Name</f:facet>
+               #{identity.firstName}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Last Name</f:facet>
+               #{identity.lastName}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Username</f:facet>
+               #{identity.username}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+               #{identity.email}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Organisation</f:facet>
+               #{identity.organisationName}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Roles</f:facet>
+               #{identity.roles}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Resources</f:facet>
+               #{identity.resources}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Modify</f:facet>
+				<h:commandButton action="#{showIdentitiesBean.modify(identity)}" outcome="modifyIdentity.xhtml"
+					value="Modify" />
+			</h:column>
+		</h:dataTable>
+
+	</h:form>
+
+	<br />
+	<br />
+	<h:button outcome="admin.xhtml" value="Back To Home" />
+
+</h:body>
+</html>

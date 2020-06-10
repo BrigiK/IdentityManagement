@@ -15,33 +15,21 @@
 		<h2 class="title-form-login">Create Account</h2>
 		<br/>
 		<h:outputText value="Email  "/>
-		<h:inputText class="effect-input" required="true" label="Email"
+		<h:inputText class="effect-input" required="true" label="Email" size="40"
 			placeholder="Email" validatorMessage="Enter email"
 			value="#{createAccountBean.createAccountDTO.email}"></h:inputText>
 		<br/>
 		<br/>
 		<h:outputText value="First name  "/>
-		<h:inputText class="effect-input" label="First name" required="true"
+		<h:inputText class="effect-input" label="First name" required="true" size="40"
 			placeholder="First name" validatorMessage="Enter first name"
 			value="#{createAccountBean.createAccountDTO.firstname}"></h:inputText>
 		<br/>
 		<br/>
 		<h:outputText value="Last name  "/>
-		<h:inputText class="effect-input" label="Last name" required="true"
+		<h:inputText class="effect-input" label="Last name" required="true" size="40"
 			placeholder="Last name" validatorMessage="Enter last name"
 			value="#{createAccountBean.createAccountDTO.lastname}"></h:inputText>
-		<br/>
-		<br/>
-		<h:outputText value="Password  "/>
-		<h:inputSecret class="effect-input" label="Password" required="true"
-			placeholder="Password" validatorMessage="Enter password"
-			value="#{createAccountBean.createAccountDTO.password}"></h:inputSecret>
-		<br/>
-		<br/>
-		<h:outputText value="Username  "/>
-		<h:inputText class="effect-input" label="Username" required="true"
-			placeholder="Username" validatorMessage="Enter username"
-			value="#{createAccountBean.createAccountDTO.username}"></h:inputText>
 		<br/>
 		<br/>
 		<h:commandButton class="btns" value="Create Account"

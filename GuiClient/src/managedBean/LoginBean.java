@@ -1,5 +1,8 @@
 package managedBean;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +17,8 @@ import com.unitbv.exception.LoginException;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
+	
+	static final Logger LOGGER = Logger.getLogger(ShowIdentitiesBean.class.getName());
 
 	LoginDTO loginDTO = new LoginDTO();
 
@@ -60,7 +65,7 @@ public class LoginBean {
 		}
 	}
 
-	public String logout() 
+	public String logout()
 	{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		identityDTO = null;

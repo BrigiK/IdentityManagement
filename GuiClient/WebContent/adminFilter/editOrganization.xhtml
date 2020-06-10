@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Edit Organization</title>
+	<h:outputStylesheet name="/css/login.css" />
+</h:head>
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{editOrganizationBean.showOrganizations}" />
+</f:metadata>
+
+<h:body>
+
+	<h:form label="selectExistingOrganizationForm" class="form">
+		<h2 class="title-form-login">Edit Organization</h2>
+		<br />
+		<h:outputText
+			value="Current organization for identity  #{showIdentitiesBean.selectedIdentity.firstName} #{showIdentitiesBean.selectedIdentity.lastName}: #{showIdentitiesBean.selectedIdentity.organisationName}" />
+		<br />
+		<br />
+		<h2 class="title-form-login">Available Organizations</h2>
+		<h:selectOneMenu value="#{editOrganizationBean.selectedOrganization}" var="organization">
+			<f:selectItems value="#{editOrganizationBean.organizations}" />
+		</h:selectOneMenu>
+		<br />
+		<br />
+		<h:commandButton class="btns" value="Assign identity to selected organization"
+			action="#{editOrganizationBean.addToOrganization(showIdentitiesBean.selectedIdentity,editOrganizationBean.selectedOrganization)}">
+		</h:commandButton>
+	</h:form>
+	
+	<h:form label="newOrganizationForm" class="form">
+		<h2 class="title-form-login">Add New Organization</h2>
+		<br />
+		<br />
+		<h:outputText value="Name  " />
+		<h:inputText class="effect-input" required="true" label="Name"
+			size="40" placeholder="Name" validatorMessage="Enter name"></h:inputText>
+		<br />
+		<br />
+		<h:outputText value="CUI  " />
+		<h:inputText class="effect-input" label="CUI" required="true"
+			size="40" placeholder="CUI" validatorMessage="Enter CUI"></h:inputText>
+		<br />
+		<br />
+		<h:commandButton class="btns" value="Save New Organization"
+			action="#{editOrganizationBean.saveOrganization}"></h:commandButton>
+
+		<br />
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	
+	<br />
+	<br />
+	<h:button outcome="modifyIdentity.xhtml" value="Back To Modifiing" />
+
+</h:body>
+</html>

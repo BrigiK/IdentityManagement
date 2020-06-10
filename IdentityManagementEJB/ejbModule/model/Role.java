@@ -24,11 +24,11 @@ public class Role implements Serializable {
 	private String roleName;
 
 	//bi-directional many-to-one association to Identityroleresource
-	@OneToMany(mappedBy="role")
-	private List<Identityroleresource> identityroleresources;
+	@OneToMany(mappedBy="role", fetch=FetchType.EAGER)
+	private List<Identityroleresources> identityroleresources;
 
 	//bi-directional many-to-many association to Right
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="rightroles"
 		, joinColumns={
@@ -67,22 +67,22 @@ public class Role implements Serializable {
 		this.roleName = roleName;
 	}
 
-	public List<Identityroleresource> getIdentityroleresources() {
+	public List<Identityroleresources> getIdentityroleresources() {
 		return this.identityroleresources;
 	}
 
-	public void setIdentityroleresources(List<Identityroleresource> identityroleresources) {
+	public void setIdentityroleresources(List<Identityroleresources> identityroleresources) {
 		this.identityroleresources = identityroleresources;
 	}
 
-	public Identityroleresource addIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources addIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().add(identityroleresource);
 		identityroleresource.setRole(this);
 
 		return identityroleresource;
 	}
 
-	public Identityroleresource removeIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources removeIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().remove(identityroleresource);
 		identityroleresource.setRole(null);
 

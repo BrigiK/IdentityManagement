@@ -24,7 +24,7 @@ public class Right implements Serializable {
 	private String rightName;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="rights")
+	@ManyToMany(mappedBy="rights", fetch=FetchType.EAGER)
 	private List<Role> roles;
 
 	public Right() {

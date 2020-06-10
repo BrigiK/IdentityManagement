@@ -2,8 +2,10 @@ package com.unitbv.util;
 
 import com.unitbv.dto.CreateAccountDTO;
 import com.unitbv.dto.IdentityDTO;
+import com.unitbv.dto.OrganizationDTO;
 
 import model.Identity;
+import model.Organization;
 
 public class DtoToEntity {
 
@@ -16,9 +18,16 @@ public class DtoToEntity {
 		return identity;
 	}
 	
+	public Organization convertOrganization(OrganizationDTO dto)
+	{
+		Organization organization = new Organization(dto.getId() , dto.getName(), dto.getCui());
+		
+		return organization;
+	}
+	
 	public Identity convertCAIdentity(CreateAccountDTO createAccountDTO)
 	{
-		Identity identity = new Identity(createAccountDTO.getEmail(), createAccountDTO.getFirstname(), createAccountDTO.getLastname(), createAccountDTO.getPassword(), createAccountDTO.getUsername());
+		Identity identity = new Identity(createAccountDTO.getEmail(), createAccountDTO.getFirstname(), createAccountDTO.getLastname());
 
 		return identity;
 	}

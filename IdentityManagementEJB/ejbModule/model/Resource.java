@@ -26,8 +26,8 @@ public class Resource implements Serializable {
 	private List<Authtype> authtypes;
 
 	//bi-directional many-to-one association to Identityroleresource
-	@OneToMany(mappedBy="resource")
-	private List<Identityroleresource> identityroleresources;
+	@OneToMany(mappedBy="resource", fetch=FetchType.EAGER)
+	private List<Identityroleresources> identityroleresources;
 
 	public Resource() {
 	}
@@ -70,22 +70,22 @@ public class Resource implements Serializable {
 		return authtype;
 	}
 
-	public List<Identityroleresource> getIdentityroleresources() {
+	public List<Identityroleresources> getIdentityroleresources() {
 		return this.identityroleresources;
 	}
 
-	public void setIdentityroleresources(List<Identityroleresource> identityroleresources) {
+	public void setIdentityroleresources(List<Identityroleresources> identityroleresources) {
 		this.identityroleresources = identityroleresources;
 	}
 
-	public Identityroleresource addIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources addIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().add(identityroleresource);
 		identityroleresource.setResource(this);
 
 		return identityroleresource;
 	}
 
-	public Identityroleresource removeIdentityroleresource(Identityroleresource identityroleresource) {
+	public Identityroleresources removeIdentityroleresource(Identityroleresources identityroleresource) {
 		getIdentityroleresources().remove(identityroleresource);
 		identityroleresource.setResource(null);
 

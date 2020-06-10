@@ -4,7 +4,7 @@
 		<jta-data-source>jdbc/firstResource</jta-data-source>
 		<class>model.Authtype</class>
 		<class>model.Identity</class>
-		<class>model.Identityroleresource</class>
+		<class>model.Identityroleresources</class>
 		<class>model.Organization</class>
 		<class>model.Resource</class>
 		<class>model.Right</class>

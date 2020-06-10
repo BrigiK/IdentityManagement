@@ -5,20 +5,16 @@ public class CreateAccountDTO {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private String password;
-	private String username;
 
 	public CreateAccountDTO() {
 		super();
 	}
 
-	public CreateAccountDTO(String firstname, String lastname, String email, String password, String username) {
+	public CreateAccountDTO(String firstname, String lastname, String email) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
-		this.password = password;
-		this.username = username;
 	}
 
 	public String getEmail() {
@@ -45,26 +41,10 @@ public class CreateAccountDTO {
 		this.lastname = lastname;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	@Override
 	public String toString() {
 		return "CreateAccountDTO [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", username=" + username + "]";
+				+ "]";
 	}
 
 }

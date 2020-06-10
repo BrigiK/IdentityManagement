@@ -6,26 +6,28 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Login</title>
+	<title>Edit Resource</title>
 	<h:outputStylesheet name="/css/login.css" />
 </h:head>
 <h:body>
 
-	<h:form label="loginForm" class="form">
-		<h2 class="title-form-login">Please login</h2>
+	<h:form label="editResourceForm" class="form">
+		<h2 class="title-form-login">Edit Resource</h2>
 		<br/>
-		<h:inputText class="effect-input" required="true" label="Username" size="30"
-			placeholder="Username" validatorMessage="Enter username"
-			value="#{loginBean.loginDTO.username}"></h:inputText>
-		<br/>
-		<br/>
-		<h:inputSecret class="effect-input" label="Password" required="true" size="30"
-			placeholder="Password" validatorMessage="Enter password"
-			value="#{loginBean.loginDTO.password}"></h:inputSecret>
+		<h:outputText value="Resource  "/>
+		<h:outputText value="#{showIdentitiesBean.selectedIdentity.resources}  "/>
 		<br/>
 		<br/>
-		<h:commandButton class="btns" value="Login"
-			action="#{loginBean.loginIdentity}"></h:commandButton>
+		<h2 class="title-form-login">Add New Resource</h2>
+		<br/>
+		<br/>
+		<h:outputText value="Name  "/>
+		<h:inputText class="effect-input" required="true" label="Name" size="40"
+			placeholder="Name" validatorMessage="Enter name"></h:inputText>
+		<br/>
+		<br/>
+		<h:commandButton class="btns" value="Save New Resource"
+			action="#{showIdentitiesBean.saveResource}"></h:commandButton>
 			
 		<br/>
 		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>

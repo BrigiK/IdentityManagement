@@ -10,8 +10,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="identityroleresources")
-@NamedQuery(name="Identityroleresource.findAll", query="SELECT i FROM Identityroleresource i")
-public class Identityroleresource implements Serializable {
+@NamedQuery(name="Identityroleresources.findAll", query="SELECT i FROM Identityroleresources i")
+public class Identityroleresources implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,7 +33,7 @@ public class Identityroleresource implements Serializable {
 	@JoinColumn(name="roleId")
 	private Role role;
 
-	public Identityroleresource() {
+	public Identityroleresources() {
 	}
 
 	public int getIdentityroleresourcesId() {

@@ -17,7 +17,6 @@ public class Organization implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int organizationId;
 
 	private String cui;
@@ -25,7 +24,7 @@ public class Organization implements Serializable {
 	private String organizationName;
 
 	//bi-directional many-to-one association to Identity
-	@OneToMany(mappedBy="organization", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="organization", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<Identity> identities;
 
 	public Organization() {

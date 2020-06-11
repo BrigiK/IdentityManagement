@@ -201,7 +201,7 @@ public class IdentityDao implements IdentityDAORemote {
 	@Override
 	public ArrayList<ModifyAccountDTO> showIdentities()
 	{
-	    Query query = entityManager.createQuery("SELECT u FROM Identity u");
+	    Query query = entityManager.createNamedQuery("Identity.findAll", Identity.class);
 		
 		@SuppressWarnings("unchecked")
 		List<Identity> identities = query.getResultList();
@@ -214,5 +214,15 @@ public class IdentityDao implements IdentityDAORemote {
 		}
 		
 		return toBeShowed;
+	}
+
+	@Override
+	public IdentityDTO findByUsername(String username) {
+		Identity identity = entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
+				.setParameter("username", username).getSingleResult();
+		
+		IdentityDTO dto = entityToDTO.convertIdentity(identity);
+		
+		return dto;
 	}
 }

@@ -19,21 +19,28 @@ public class Identityroleresources implements Serializable {
 	private int identityroleresourcesId;
 
 	//bi-directional many-to-one association to Identity
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="identityId")
 	private Identity identity;
 
 	//bi-directional many-to-one association to Resource
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="resourceId")
 	private Resource resource;
 
 	//bi-directional many-to-one association to Role
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="roleId")
 	private Role role;
 
 	public Identityroleresources() {
+	}
+
+	public Identityroleresources(Identity identity, Resource resource, Role role) {
+		super();
+		this.identity = identity;
+		this.resource = resource;
+		this.role = role;
 	}
 
 	public int getIdentityroleresourcesId() {

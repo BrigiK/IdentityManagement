@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Modify roles and resources</title>
+	<h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{editRolesResourcesBean.showAllRoles}" />
+	<f:event type="preRenderView"
+		listener="#{editRolesResourcesBean.showAllResources}" />
+</f:metadata>
+
+<h:body>
+	<h2>Modify roles and resources</h2>
+
+	
+	<h:form label="allRolesAndResources">
+		<h2>All available roles</h2>
+		<h:selectOneMenu value="#{editRolesResourcesBean.selectedRole}" var="role">
+			<f:selectItems value="#{editRolesResourcesBean.roles}" />
+		</h:selectOneMenu>
+		<br />
+		<br />
+		
+		<h2>All available resources</h2>
+		<h:selectOneMenu value="#{editRolesResourcesBean.selectedResource}" var="resource">
+			<f:selectItems value="#{editRolesResourcesBean.resources}" />
+		</h:selectOneMenu>
+		<br />
+		<br />
+		<h:commandButton class="btns"
+			value="Assign selected role for selected resource to user"
+			action="#{editRolesResourcesBean.addRoleResourceToIdentity(showIdentitiesBean.selectedIdentity)}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+		
+		<br />
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	<br />
+	<br />
+	<h:button outcome="modifyIdentity.xhtml" value="Back" />
+
+</h:body>
+</html>

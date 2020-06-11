@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -59,13 +60,11 @@ public class EditOrganizationBean {
 		{
 			organizations = organizationDAORemote.findAll();
 			
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!" + organizations);
-			
 			facesContext.getExternalContext().getSessionMap().put("organizations", organizations);
 		} 
-		catch (ModifyAccountException e)
+		catch (EJBException e)
 		{
-			facesContext.addMessage("selectExistingOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.message(), null));
+			facesContext.addMessage("selectExistingOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
 		}
 	}
 	
@@ -78,11 +77,27 @@ public class EditOrganizationBean {
 			OrganizationDTO dto = organizationDAORemote.findByName(organization);
 			organizationDAORemote.assignIdentityToOrganization(modifyAccountDTO, dto);
 		}
-		catch (ModifyAccountException e)
+		catch (EJBException e)
 		{
-			facesContext.addMessage("selectExistingOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.message(), null));
+			facesContext.addMessage("selectExistingOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
 		}
 		
 		facesContext.addMessage("selectExistingOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Organization successfully assigned to identity!", null));
+	}
+	
+	public void createOrganization()
+	{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
+		try
+		{
+			organizationDAORemote.create(organizationDTO);
+		}
+		catch (EJBException e)
+		{
+			facesContext.addMessage("newOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+		}
+		
+		facesContext.addMessage("newOrganizationForm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Organization successfully created!", null));
 	}
 }

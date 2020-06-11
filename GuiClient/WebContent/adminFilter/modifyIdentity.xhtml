@@ -11,6 +11,11 @@
 	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{editRolesResourcesBean.showRolesResources(showIdentitiesBean.selectedIdentity)}" />
+</f:metadata>
+
 <h:body>
 	<h2>Modify Identity</h2>
 
@@ -46,37 +51,38 @@
 		<h:outputText value="Organization   " />
 		<h:inputText class="effect-input" required="true" label="Organization"
 			size="40" placeholder="#{showIdentitiesBean.selectedIdentity.organisationName}"
-			value="#{editOrganizationBean.selectedOrganization}">
+			value="#{editOrganizationBean.selectedOrganization == null ? showIdentitiesBean.selectedIdentity.organisationName : editOrganizationBean.selectedOrganization}">
 		</h:inputText>
-		<h:button outcome="editOrganization.xhtml" value="Edit" />
+		<h:button outcome="editOrganization.xhtml" value="Edit" />	
 		<br />
 		<br />
-
-		<h:outputText value="Roles   " />
-		<h:selectManyCheckbox id="grid0"
-			value="#{showIdentitiesBean.selectedIdentity.roles}" layout="grid"
-			columns="3">
-			<f:selectItems value="#{showIdentitiesBean.selectedIdentity.roles}"
-				var="role" itemLabel="#{role}" itemValue="#{role}" />
-			<h:button outcome="editRoles.xhtml" value="Edit" />
-		</h:selectManyCheckbox>
-		<br />
-		<br />
-
-		<h:outputText value="Resources   " />
-		<h:selectManyCheckbox id="grid1"
-			value="#{showIdentitiesBean.selectedIdentity.resources}"
-			layout="grid" columns="3">
-			<f:selectItems
-				value="#{showIdentitiesBean.selectedIdentity.resources}" var="role"
-				itemLabel="#{role}" itemValue="#{role}" />
-			<h:button outcome="editResources.xhtml" value="Edit" />
-		</h:selectManyCheckbox>
-		<br />
-		<br />
-
 	</h:form>
+	
+	<br />
+	<br />
+	<h:form label="showRolesResources">
+		<h:dataTable value="#{editRolesResourcesBean.dtos}" var="roleResource"
+			styleClass="identityTable"
+			headerClass="identityTableHeader"
+			rowClasses="identityTableOddRow,identityTableEvenRow">
 
+			<h:column>
+				<f:facet name="header">Role Name</f:facet>
+               #{roleResource.roleName}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Resource Name</f:facet>
+               #{roleResource.resourceName}
+            </h:column>
+            
+		</h:dataTable>
+		<h:button outcome="editRoleResource.xhtml" value="Assign new role/resource" />
+		<br />
+		<br />
+		<h:button outcome="viewAndAddRolesAndResources.xhtml" value="Add new Roles and Resources" />
+	</h:form>
+	
 	<br />
 	<br />
 	<h:button outcome="showIdentities.xhtml" value="Back To Identities" />

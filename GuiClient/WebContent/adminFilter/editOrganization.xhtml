@@ -41,16 +41,16 @@
 		<br />
 		<h:outputText value="Name  " />
 		<h:inputText class="effect-input" required="true" label="Name"
-			size="40" placeholder="Name" validatorMessage="Enter name"></h:inputText>
+			size="40" placeholder="Name" validatorMessage="Enter name" value="#{editOrganizationBean.organizationDTO.name}"></h:inputText>
 		<br />
 		<br />
 		<h:outputText value="CUI  " />
 		<h:inputText class="effect-input" label="CUI" required="true"
-			size="40" placeholder="CUI" validatorMessage="Enter CUI"></h:inputText>
+			size="40" placeholder="CUI" validatorMessage="Enter CUI" value="#{editOrganizationBean.organizationDTO.cui}"></h:inputText>
 		<br />
 		<br />
 		<h:commandButton class="btns" value="Save New Organization"
-			action="#{editOrganizationBean.saveOrganization}"></h:commandButton>
+			action="#{editOrganizationBean.createOrganization}"></h:commandButton>
 
 		<br />
 		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>

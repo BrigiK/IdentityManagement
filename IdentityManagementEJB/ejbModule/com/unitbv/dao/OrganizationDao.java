@@ -64,8 +64,11 @@ public class OrganizationDao implements OrganizationDAORemote {
 	@Override
 	public OrganizationDTO create(OrganizationDTO organizationDTO) {
 		Organization organization = dtoToEntity.convertOrganization(organizationDTO);
+		System.out.println("!!!!!!!!!!!!!HERE!!!!!!!!!" + organization.getOrganizationId());
 		entityManager.persist(organization);
+		System.out.println("!!!!!!!!!!!!!after persist" + organization.getOrganizationId());
 		entityManager.flush();
+		System.out.println("!!!!!!!!!!!!!after flush" + organization.getOrganizationId());
 		
 		return organizationDTO;
 	}

@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="resources")
 @NamedQuery(name="Resource.findAll", query="SELECT r FROM Resource r")
+@NamedQuery(name = "findResourceByResourceName", query = "SELECT i FROM Resource i WHERE i.resourceName = :resourceName")
 public class Resource implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,14 +25,20 @@ public class Resource implements Serializable {
 	private String resourceName;
 
 	//bi-directional many-to-one association to Authtype
-	@OneToMany(mappedBy="resource")
+	@OneToMany(mappedBy="resource")//, cascade = CascadeType.PERSIST)
 	private List<Authtype> authtypes;
 
 	//bi-directional many-to-one association to Identityroleresource
 	@OneToMany(mappedBy="resource", fetch=FetchType.EAGER)
-	private List<Identityroleresources> identityroleresources;
+	private List<Identityroleresources> identityroleresources = new ArrayList<Identityroleresources>();
 
 	public Resource() {
+	}
+
+	public Resource(int resourceId, String resourceName) {
+		super();
+		this.resourceId = resourceId;
+		this.resourceName = resourceName;
 	}
 
 	public int getResourceId() {

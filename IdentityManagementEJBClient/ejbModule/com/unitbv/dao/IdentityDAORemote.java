@@ -27,4 +27,6 @@ public interface IdentityDAORemote extends GenericDAO<IdentityDTO> {
 	ModifyAccountDTO modifyAccount(ModifyAccountDTO modifyAccountDTO) throws ModifyAccountException;
 	
 	ArrayList<ModifyAccountDTO> showIdentities();
+	
+	IdentityDTO findByUsername(String username);
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="roles")
 @NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
+@NamedQuery(name = "findRoleByRoleName", query = "SELECT i FROM Role i WHERE i.roleName = :roleName")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +28,7 @@ public class Role implements Serializable {
 
 	//bi-directional many-to-one association to Identityroleresource
 	@OneToMany(mappedBy="role", fetch=FetchType.EAGER)
-	private List<Identityroleresources> identityroleresources;
+	private List<Identityroleresources> identityroleresources = new ArrayList<Identityroleresources>();
 
 	//bi-directional many-to-many association to Right
 	@ManyToMany(fetch=FetchType.EAGER)
@@ -43,6 +46,12 @@ public class Role implements Serializable {
 	public Role() {
 	}
 
+	public Role(String roleName, String roleDescription) {
+		super();
+		this.roleName = roleName;
+		this.roleDescription = roleDescription;
+	}
+	
 	public int getRoleId() {
 		return this.roleId;
 	}

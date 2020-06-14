@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Add new Roles and Rights</title>
+	<h:outputStylesheet library="css" name="table.css" />
+</h:head>
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{editRightsRolesBean.showRolesRights}" />
+	<f:event type="preRenderView"
+		listener="#{editRolesResourcesBean.showAllRoles}" />
+	<f:event type="preRenderView"
+		listener="#{editRightsRolesBean.showAllRights}" />
+</f:metadata>
+
+<h:body>
+
+	<h2>Available rights and roles</h2>
+
+	<h:form label="showRolesResources">
+		<h:dataTable value="#{editRightsRolesBean.roleDTOs}" var="role"
+			styleClass="identityTable"
+			headerClass="identityTableHeader"
+			rowClasses="identityTableOddRow,identityTableEvenRow">
+
+			<h:column>
+				<f:facet name="header">Role Name</f:facet>
+               #{role.name}
+            </h:column>
+            
+			<h:column>
+				<f:facet name="header">Right Name</f:facet>
+               #{role.rights}
+            </h:column>
+            
+		</h:dataTable>
+		<br />
+		<br />
+	</h:form>
+
+	<h2>___________________________________________________________</h2>
+	<h1>Add new Roles and Rights</h1>
+
+	<h:form label="newRoleForm" class="form">
+		<h2 class="title-form-login">Add New Role</h2>
+		<br />
+		<br />
+		<h:outputText value="Name  " />
+		<h:inputText class="effect-input" required="true" label="Name"
+			size="40" placeholder="Name" validatorMessage="Enter name"
+			value="#{editRolesResourcesBean.roleDto.name}"></h:inputText>
+		<br />
+		<br />
+		<h:outputText value="Description  " />
+		<h:inputText class="effect-input" required="true" label="Description"
+			value="#{editRolesResourcesBean.roleDto.description}" size="40"
+			placeholder="Description" validatorMessage="Enter description"></h:inputText>
+		<br />
+		<br />
+		<h:commandButton class="btns" value="Save New Role"
+			action="#{editRolesResourcesBean.addNewRole}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+
+		<br />
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+
+	<h:form label="newRightForm" class="form">
+		<h2 class="title-form-login">Add New Right</h2>
+		<br />
+		<br />
+		<h:outputText value="Name  " />
+		<h:inputText class="effect-input" required="true" label="Name"
+			size="40" placeholder="Name" validatorMessage="Enter name"
+			value="#{editRightsRolesBean.rightDTO.name}"></h:inputText>
+		<br />
+		<br />
+		<h:outputText value="Description  " />
+		<h:inputText class="effect-input" required="true" label="Description"
+			size="40" placeholder="Description" validatorMessage="Enter description"
+			value="#{editRightsRolesBean.rightDTO.description}"></h:inputText>
+		<br />
+		<br />
+		<h:commandButton class="btns" value="Save New Right"
+			action="#{editRightsRolesBean.addNewRight}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+
+		<br />
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	
+	<h2>___________________________________________________________</h2>
+	<h1>Assign a right to a role</h1>
+	
+	<h:form label="allRolesAndRights">
+		<h2>All available roles</h2>
+		<h:selectOneMenu value="#{editRightsRolesBean.selectedRole}" var="role">
+			<f:selectItems value="#{editRolesResourcesBean.roles}" />
+		</h:selectOneMenu>
+		<br />
+		<br />
+		
+		<h2>All available rights</h2>
+		<h:selectOneMenu value="#{editRightsRolesBean.selectedRight}" var="right">
+			<f:selectItems value="#{editRightsRolesBean.rightDTOs}" />
+		</h:selectOneMenu>
+		<br />
+		<br />
+		<h:commandButton class="btns"
+			value="Assign selected right for selected role"
+			action="#{editRightsRolesBean.addRightToRole}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+		
+		<br />
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	
+	<br />
+	<br />
+	<h:button outcome="admin.xhtml" value="Back" />
+
+</h:body>
+</html>

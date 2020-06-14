@@ -2,18 +2,19 @@ package com.unitbv.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.unitbv.dto.IdentityDTO;
 import com.unitbv.dto.IdentityRolesResourcesDTO;
 import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.OrganizationDTO;
 import com.unitbv.dto.ResourceDTO;
+import com.unitbv.dto.RightDTO;
 import com.unitbv.dto.RoleDTO;
 
 import model.Identity;
 import model.Identityroleresources;
 import model.Organization;
 import model.Resource;
+import model.Right;
 import model.Role;
 
 public class EntityToDTO {
@@ -37,6 +38,23 @@ public class EntityToDTO {
 	{
 		RoleDTO roleDTO = new RoleDTO(role.getRoleName(), role.getRoleDescription());
 		
+		List<RightDTO> rightDtos = new ArrayList<RightDTO>();
+		
+		try
+		{
+			for(Right right : role.getRights())
+			{
+				rightDtos.add(convertRight(right));
+			}
+			
+			roleDTO.setRights(rightDtos);
+			
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + roleDTO.getRights());
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		return roleDTO;
 	}
 	
@@ -45,6 +63,13 @@ public class EntityToDTO {
 		ResourceDTO resourceDTO = new ResourceDTO(resource.getResourceId(), resource.getResourceName());
 		
 		return resourceDTO;
+	}
+	
+	public RightDTO convertRight(Right right)
+	{
+		RightDTO rightDTO = new RightDTO(right.getRightId(), right.getRightName(), right.getRightDescription());
+		
+		return rightDTO;
 	}
 	
 	public IdentityRolesResourcesDTO convertIdRoRe(Identityroleresources identityroleresources)

@@ -1,28 +1,34 @@
 package com.unitbv.dto;
 
-import java.util.List;
-
-public class RoleDTO {
+public class RightDTO {
 	
+	private int id;
 	private String name;
 	private String description;
-	private List<RightDTO> rights;
 	
-	public RoleDTO() {
+	public RightDTO() {
 		super();
 	}
-
-	public RoleDTO(String name, String description) {
+	
+	public RightDTO(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
 	}
 
-	public RoleDTO(String name, String description, List<RightDTO> rights) {
+	public RightDTO(int id, String name, String description) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.rights = rights;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -41,17 +47,8 @@ public class RoleDTO {
 		this.description = description;
 	}
 
-	public List<RightDTO> getRights() {
-		return rights;
-	}
-
-	public void setRights(List<RightDTO> rights) {
-		this.rights = rights;
-	}
-
 	@Override
 	public String toString() {
 		return name;
 	}
-
 }

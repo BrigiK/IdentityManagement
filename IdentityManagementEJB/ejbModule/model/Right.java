@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="rights")
 @NamedQuery(name="Right.findAll", query="SELECT r FROM Right r")
+@NamedQuery(name = "findRightByRightName", query = "SELECT i FROM Right i WHERE i.rightName = :rightName")
 public class Right implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,10 +25,16 @@ public class Right implements Serializable {
 	private String rightName;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="rights", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy="rights", fetch=FetchType.EAGER)//, cascade = CascadeType.PERSIST)
 	private List<Role> roles;
 
 	public Right() {
+	}
+
+	public Right(String rightName, String rightDescription) {
+		super();
+		this.rightName = rightName;
+		this.rightDescription = rightDescription;
 	}
 
 	public int getRightId() {

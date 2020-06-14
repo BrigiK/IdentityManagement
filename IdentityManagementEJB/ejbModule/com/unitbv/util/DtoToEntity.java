@@ -1,5 +1,7 @@
 package com.unitbv.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -9,12 +11,14 @@ import com.unitbv.dto.IdentityRolesResourcesDTO;
 import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.OrganizationDTO;
 import com.unitbv.dto.ResourceDTO;
+import com.unitbv.dto.RightDTO;
 import com.unitbv.dto.RoleDTO;
 
 import model.Identity;
 import model.Identityroleresources;
 import model.Organization;
 import model.Resource;
+import model.Right;
 import model.Role;
 
 public class DtoToEntity {
@@ -52,6 +56,21 @@ public class DtoToEntity {
 	{
 		Role role = new Role(dto.getName(), dto.getDescription());
 		
+		List<Right> rights = new ArrayList<Right>();
+		
+		try
+		{
+			for(RightDTO rightDTO : dto.getRights())
+			{
+				rights.add(convertRight(rightDTO));
+			}
+			
+			role.setRights(rights);
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		return role;
 	}
 	
@@ -60,6 +79,13 @@ public class DtoToEntity {
 		Resource resource = new Resource(dto.getId(), dto.getName());
 		
 		return resource;
+	}
+	
+	public Right convertRight(RightDTO dto)
+	{
+		Right right = new Right(dto.getName(), dto.getDescription());
+		
+		return right;
 	}
 	
 	public Identityroleresources convertIdRoRe(Identity identity, Resource resource, Role role)

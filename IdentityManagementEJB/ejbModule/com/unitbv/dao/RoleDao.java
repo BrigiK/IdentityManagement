@@ -11,12 +11,16 @@ import javax.persistence.Query;
 
 import com.unitbv.dto.IdentityDTO;
 import com.unitbv.dto.ModifyAccountDTO;
+import com.unitbv.dto.RightDTO;
 import com.unitbv.dto.RoleDTO;
 import com.unitbv.util.DtoToEntity;
 import com.unitbv.util.EntityToDTO;
 
 import model.Identity;
+import model.Identityroleresources;
 import model.Organization;
+import model.Resource;
+import model.Right;
 import model.Role;
 
 @Stateless
@@ -48,13 +52,17 @@ public class RoleDao implements RoleDAORemote {
 		@SuppressWarnings("unchecked")
 		List<Role> roles = query.getResultList();
 		
-		System.out.println(roles.toString());
-		
 		List<RoleDTO> dtoRoles = new ArrayList<>();
 		
-		for (Role role : roles) 
+		try
 		{
-			dtoRoles.add(entityToDTO.convertRole(role));
+			for (Role role : roles) 
+			{
+				dtoRoles.add(entityToDTO.convertRole(role));
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e);
 		}
 		
 		return dtoRoles;
@@ -84,21 +92,6 @@ public class RoleDao implements RoleDAORemote {
 	}
 
 	@Override
-	public void assignIdentityToRole(ModifyAccountDTO modifyAccountDTO, RoleDTO roleDTO) {
-		
-//		Identity identity = entityManager.createNamedQuery("findIdentityByUsername", Identity.class)
-//				.setParameter("username", modifyAccountDTO.getFirstName().toLowerCase() + "." + modifyAccountDTO.getLastName().toLowerCase()).getSingleResult();
-//		
-//		Role role = dtoToEntity.convertRole(roleDTO);
-//		
-//		System.out.println("IM HERE!!!!!!!" + role.toString());
-//		
-//		identity.set(organization);
-//		
-//		entityManager.merge(identity);
-	}
-
-	@Override
 	public RoleDTO getRoleByName(String roleName) {
 		
 		Role role = entityManager.createNamedQuery("findRoleByRoleName", Role.class)
@@ -107,6 +100,23 @@ public class RoleDao implements RoleDAORemote {
 		RoleDTO dto = entityToDTO.convertRole(role);
 		
 		return dto;
+	}
+
+	@Override
+	public void assignRightToRole(RoleDTO roleDTO, RightDTO rightDTO) {
+		
+		Role role = entityManager.createNamedQuery("findRoleByRoleName", Role.class)
+				.setParameter("roleName", roleDTO.getName()).getSingleResult();
+		
+		Right right = entityManager.createNamedQuery("findRightByRightName", Right.class)
+				.setParameter("rightName", rightDTO.getName()).getSingleResult();
+		
+		role.getRights().add(right);
+		right.getRoles().add(role);
+		
+		entityManager.merge(role);
+		entityManager.merge(right);
+		entityManager.flush();
 	}
 
 }

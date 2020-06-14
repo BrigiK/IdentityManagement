@@ -26,7 +26,8 @@ import com.unitbv.exception.ModifyAccountException;
 import com.unitbv.util.DtoToEntity;
 import com.unitbv.util.EntityToDTO;
 
-import model.Identity;;
+import model.Identity;
+import model.Identityroleresources;;
 
 /**
  * Session Bean implementation class UserDAO
@@ -224,5 +225,75 @@ public class IdentityDao implements IdentityDAORemote {
 		IdentityDTO dto = entityToDTO.convertIdentity(identity);
 		
 		return dto;
+	}
+
+	@Override
+	public boolean isAdmin(IdentityDTO identityDTO) {
+		
+		Identity identity = entityManager.find(Identity.class, identityDTO.getId());
+		
+		for(Identityroleresources idRolRes : identity.getIdentityroleresources())
+		{
+			if(idRolRes.getRole().getRoleName().equals("SYSTEM_ADMIN"))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasOfficeAccount(IdentityDTO identityDTO) {
+		
+		Identity identity = entityManager.find(Identity.class, identityDTO.getId());
+		
+		for(Identityroleresources idRolRes : identity.getIdentityroleresources())
+		{
+			if(idRolRes.getResource().getResourceName().equals("Microsoft Office 365"))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasSkypeAccount(IdentityDTO identityDTO) {
+		
+		Identity identity = entityManager.find(Identity.class, identityDTO.getId());
+		
+		for(Identityroleresources idRolRes : identity.getIdentityroleresources())
+		{
+			if(idRolRes.getResource().getResourceName().equals("Skype"))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasOutlookAccount(IdentityDTO identityDTO) {
+		
+		Identity identity = entityManager.find(Identity.class, identityDTO.getId());
+		
+		for(Identityroleresources idRolRes : identity.getIdentityroleresources())
+		{
+			if(idRolRes.getResource().getResourceName().equals("Outlook"))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void changePassword(IdentityDTO identityDTO, String newPassword) {
+		
+		Identity identity = entityManager.find(Identity.class, identityDTO.getId());
+		
+		identity.setPassword(newPassword);
+		
+		entityManager.merge(identity);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.unitbv.dto.IdentityDTO;
 import com.unitbv.dto.IdentityRolesResourcesDTO;
+import com.unitbv.dto.IdentityRolesRightsResourcesDTO;
 import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.OrganizationDTO;
 import com.unitbv.dto.ResourceDTO;
@@ -124,6 +125,26 @@ public class EntityToDTO {
 		}
 		
 		ModifyAccountDTO dto = new ModifyAccountDTO(identity.getFirstname(), identity.getLastname(), identity.getUsername(), identity.getEmail(), org, roles, resources);
+		
+		return dto;
+	}
+
+	public IdentityRolesRightsResourcesDTO convertIdRoRiRe(Identityroleresources idRoRes) {
+		int identityId = idRoRes.getIdentity().getIdentityId();
+		String identityUsername =idRoRes.getIdentity().getUsername();
+		int resourceId = idRoRes.getResource().getResourceId();
+		String resourceName = idRoRes.getResource().getResourceName();
+		int roleId = idRoRes.getRole().getRoleId();
+		String roleName = idRoRes.getRole().getRoleName();
+		List<Right> rights = idRoRes.getRole().getRights();
+		List<RightDTO> rightDTOs = new ArrayList<>();
+		
+		for(Right right : rights)
+		{
+			rightDTOs.add(convertRight(right));
+		}
+		
+		IdentityRolesRightsResourcesDTO dto = new IdentityRolesRightsResourcesDTO(identityId, identityUsername, resourceId, resourceName, roleId, roleName, rightDTOs);
 		
 		return dto;
 	}

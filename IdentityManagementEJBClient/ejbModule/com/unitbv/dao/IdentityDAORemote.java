@@ -29,4 +29,14 @@ public interface IdentityDAORemote extends GenericDAO<IdentityDTO> {
 	ArrayList<ModifyAccountDTO> showIdentities();
 	
 	IdentityDTO findByUsername(String username);
+
+	boolean isAdmin(IdentityDTO identityDTO);
+
+	boolean hasOfficeAccount(IdentityDTO identityDTO);
+
+	boolean hasSkypeAccount(IdentityDTO identityDTO);
+
+	boolean hasOutlookAccount(IdentityDTO identityDTO);
+
+	void changePassword(IdentityDTO identityDTO, String newPassword);
 }

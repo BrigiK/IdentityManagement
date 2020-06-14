@@ -76,6 +76,14 @@
                #{roleResource.resourceName}
             </h:column>
             
+            <h:column>
+				<f:facet name="header">Delete</f:facet>
+               	<h:commandButton class="btns" value="Delete"
+				action="#{editRolesResourcesBean.removeResourceFromIdentity(showIdentitiesBean.selectedIdentity,roleResource)}">
+				<f:ajax execute="@form" render="@form" />
+				</h:commandButton>
+            </h:column>
+            
 		</h:dataTable>
 		<h:button outcome="editRoleResource.xhtml" value="Assign new role/resource" />
 		<br />

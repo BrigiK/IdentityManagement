@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import com.unitbv.dto.IdentityDTO;
 import com.unitbv.dto.IdentityRolesResourcesDTO;
+import com.unitbv.dto.IdentityRolesRightsResourcesDTO;
 import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.ResourceDTO;
 import com.unitbv.dto.RoleDTO;
@@ -118,6 +119,49 @@ public class IdentityRolesResourcesDao implements IdentityRolesResourcesDAORemot
 		identity.getIdentityroleresources().add(identityroleresources);
 		entityManager.persist(identityroleresources);
 		entityManager.flush();
+	}
+
+	@Override
+	public void delete(int identityId, int resourceId, int roleId) {
+		
+		Query selectQuery = entityManager.createQuery("SELECT u FROM Identityroleresources u WHERE u.identity.identityId = :identityId AND u.resource.resourceId = :resourceId AND u.role.roleId = :roleId");
+		selectQuery.setParameter("identityId", identityId);
+		selectQuery.setParameter("resourceId", resourceId);
+		selectQuery.setParameter("roleId", roleId);
+		
+		Identityroleresources identityroleresources = (Identityroleresources) selectQuery.getSingleResult();
+		
+		Query deleteQuery = entityManager.createQuery("DELETE FROM Identityroleresources u WHERE u.identity.identityId = :identityId AND u.resource.resourceId = :resourceId AND u.role.roleId = :roleId");
+		deleteQuery.setParameter("identityId", identityId);
+		deleteQuery.setParameter("resourceId", resourceId);
+		deleteQuery.setParameter("roleId", roleId);
+		deleteQuery.executeUpdate();
+		
+		Identity identity = entityManager.find(Identity.class, identityId);
+		Role role = entityManager.find(Role.class, roleId);
+		Resource resource = entityManager.find(Resource.class, resourceId);
+		
+		identity.getIdentityroleresources().remove(identityroleresources);
+		role.getIdentityroleresources().remove(identityroleresources);
+		resource.getIdentityroleresources().remove(identityroleresources);
+	}
+	
+	@Override
+	public List<IdentityRolesRightsResourcesDTO> findRolesRightsForIdentity(int identityId) {
+		
+		Query query = entityManager.createQuery("SELECT u FROM Identityroleresources u WHERE u.identity.identityId = :identityId").setParameter("identityId", identityId);
+		
+		@SuppressWarnings("unchecked")
+		List<Identityroleresources> identityroleresources = query.getResultList();
+		
+		List<IdentityRolesRightsResourcesDTO> dtoIdRoRiRes = new ArrayList<>();
+		
+		for (Identityroleresources idRoRes : identityroleresources)
+		{
+			dtoIdRoRiRes.add(entityToDTO.convertIdRoRiRe(idRoRes));
+		}
+		
+		return dtoIdRoRiRes;
 	}
 
 }

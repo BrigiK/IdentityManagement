@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.unitbv.dto.IdentityRolesResourcesDTO;
+import com.unitbv.dto.IdentityRolesRightsResourcesDTO;
 import com.unitbv.dto.ModifyAccountDTO;
 import com.unitbv.dto.ResourceDTO;
 import com.unitbv.dto.RoleDTO;
@@ -15,4 +16,8 @@ public interface IdentityRolesResourcesDAORemote extends GenericDAO<IdentityRole
 	public List<IdentityRolesResourcesDTO> findAllForIdentity(int identityId);
 	
 	public void assignIdentityToRoleResource(ModifyAccountDTO identityDTO, RoleDTO roleDTO, ResourceDTO resourceDTO);
+	
+	public void delete(int identityId, int resourceId, int roleId);
+	
+	public List<IdentityRolesRightsResourcesDTO> findRolesRightsForIdentity(int identityId);
 }

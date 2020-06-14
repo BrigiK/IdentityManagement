@@ -52,9 +52,15 @@ public class LoginBean {
 			identityDTO = identityDAORemote.loginIdentity(loginDTO);
 			facesContext.getExternalContext().getSessionMap().put("identityDTO", identityDTO);
 			// if identityDTO is admin
-			System.out.println("admin logged");
-			
-			return "/adminFilter/admin.xhtml?faces-redirect=true";
+			if(identityDAORemote.isAdmin(identityDTO))
+			{
+				return "/adminFilter/admin.xhtml?faces-redirect=true";
+			}
+			else
+			{
+				facesContext.addMessage("loginForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, "You must be system admin in order to access this page!", null));
+				return null;
+			}
 		} 
 		catch (LoginException e) 
 		{
@@ -70,6 +76,6 @@ public class LoginBean {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		identityDTO = null;
 
-		return "/index?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 }

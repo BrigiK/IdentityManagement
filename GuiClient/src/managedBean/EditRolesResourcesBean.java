@@ -220,4 +220,18 @@ public class EditRolesResourcesBean {
 			facesContext.addMessage("newResourceForm", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.toString(), null));
 		}
 	}
+	
+	public void removeResourceFromIdentity(ModifyAccountDTO accountDTO, IdentityRolesResourcesDTO dto)
+	{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
+		try 
+		{
+			daoRemote.delete(dto.getIdentityId(), dto.getResourceId(), dto.getRoleId());
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + dto.getIdentityUsername());
+		}
+		catch (EJBException e) {
+			facesContext.addMessage("showRolesResources", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+		}
+	}
 }

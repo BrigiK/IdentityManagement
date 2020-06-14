@@ -12,35 +12,28 @@
 <h:body>
 
 	<h:form label="loginForm" class="form">
-		<h2 class="title-form-login">Please login</h2>
+		<h2 class="title-form-login">Please login to Outlook</h2>
 		<br />
+		<h:outputText value="Username  "/>
 		<h:inputText class="effect-input" required="true" label="Username"
 			size="30" placeholder="Username" validatorMessage="Enter username"
-			value="#{loginBean.loginDTO.username}"></h:inputText>
+			value="#{outlookBean.loginDTO.username}"></h:inputText>
 		<br />
 		<br />
+		<h:outputText value="Password  "/>
 		<h:inputSecret class="effect-input" label="Password" required="true"
 			size="30" placeholder="Password" validatorMessage="Enter password"
-			value="#{loginBean.loginDTO.password}"></h:inputSecret>
+			value="#{outlookBean.loginDTO.password}"></h:inputSecret>
 		<br />
 		<br />
 		<h:commandButton class="btns" value="Login"
-			action="#{loginBean.loginIdentity}"></h:commandButton>
+			action="#{outlookBean.loginIdentity}"></h:commandButton>
 
 		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
 	</h:form>
-	
 	<br />
 	<br />
-	<h:button outcome="/userFilter/skypeLogin.xhtml" value="Skype Login" />
-	<br />
-	<br />
-	<h:button outcome="/userFilter/outlookLogin.xhtml" value="Outlook Login" />
-	<br />
-	<br />
-	<h:button outcome="/userFilter/officeLogin.xhtml" value="Microsoft Office 365 Login" />
-	<br />
-	<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	<h:button outcome="/index.xhtml" value="Back" />
 
 </h:body>
 </html>

@@ -1,4 +1,4 @@
-//package com.wine.managedBean;
+//package managedBean;
 //
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
@@ -9,11 +9,6 @@
 //import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 //import javax.faces.context.FacesContext;
-//
-//import com.shop.wineDAO.GlobalUserDAORemote;
-//import com.shop.wineDTO.ChangePasswordDTO;
-//import com.shop.wineDTO.GlobalUserDTO;
-//import com.wine.exception.ChangePasswordException;
 //
 //@ManagedBean
 //@RequestScoped

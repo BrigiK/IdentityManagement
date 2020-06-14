@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Home</title>
+	<h:outputStylesheet name="/css/table.css" />
+</h:head>
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{officeBean.showRolesRights}" />
+</f:metadata>
+
+<h:body>
+
+	<h1>Welcome to Microsoft Office 365,
+		#{officeBean.loginDTO.username}!</h1>
+	<br />
+	<h2>_____________________________________________</h2>
+	<h2>You have the next roles and rights:</h2>
+	<h:form label="showRolesResources">
+		<h:dataTable value="#{officeBean.dtos}" var="roleRight"
+			styleClass="identityTable" headerClass="identityTableHeader"
+			rowClasses="identityTableOddRow,identityTableEvenRow">
+
+			<h:column>
+				<f:facet name="header">Resource Name</f:facet>
+               #{roleRight.resourceName}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Role Name</f:facet>
+               #{roleRight.roleName}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Right Name</f:facet>
+				<ui:repeat value="#{roleRight.rights}" var="right">
+					#{right.name};
+				</ui:repeat>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Right Description</f:facet>
+				<ui:repeat value="#{roleRight.rights}" var="rightDes">
+					#{rightDes.description};
+				</ui:repeat>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	<br />
+	<h2>_____________________________________________</h2>
+	<h2>Change password</h2>
+	<br />
+	<h:form label="changePasswordForm">
+		<h:outputText value="New Password  " />
+		<h:inputSecret class="effect-input" label="Password" required="true"
+			size="40" placeholder="Password"
+			validatorMessage="Enter new Password"
+			value="#{officeBean.newPassword}"></h:inputSecret>
+		<br />
+		<br />
+		<h:commandButton class="btns" value="Change Password"
+			action="#{officeBean.changePassword}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+		<h:messages infoStyle="color:darkgreen" errorStyle="color:darkred"></h:messages>
+	</h:form>
+	<br />
+	<br />
+	<h:button outcome="/index.xhtml" value="Sign Out" />
+</h:body>
+</html>
